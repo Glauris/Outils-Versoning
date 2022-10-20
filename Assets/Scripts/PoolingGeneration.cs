@@ -8,6 +8,16 @@ public class PoolingGeneration : MonoBehaviour // Le script utilise du pooling, 
 
     public List<GameObject> terrainGenerated = new List<GameObject>(); //Liste du terrain instancié au début
 
+    public List<GameObject> prefabsOnGame = new List<GameObject>();
+
+    GameObject lastPlatform;
+
+    GameObject actualPlateform;
+
+    int prefabID = 0;
+
+    float xGenerationStart;
+
 
     [SerializeField]
     Transform generationPoint;
@@ -16,7 +26,7 @@ public class PoolingGeneration : MonoBehaviour // Le script utilise du pooling, 
 
     private void Awake()
     {
-        float xGenerationStart = generationPoint.position.x + 35f;
+        xGenerationStart = generationPoint.position.x + 30f;
 
         for (int i = 0; i < prefabsToGenerate.Count; i++)
         {
@@ -26,9 +36,9 @@ public class PoolingGeneration : MonoBehaviour // Le script utilise du pooling, 
         }
         for (int j = 0; j < numberOfSpawns; j++)
         {
-            GenerateTerrain(terrainGenerated[Random.Range(0, terrainGenerated.Count)], new Vector2(xGenerationStart, generationPoint.position.y));
+            GenerateTerrain(terrainGenerated[Random.Range(0, terrainGenerated.Count)], new Vector2(xGenerationStart, 0));
             Debug.Log(xGenerationStart);
-            xGenerationStart += 68;
+            xGenerationStart += 55;
             
         }
     }
@@ -38,9 +48,11 @@ public class PoolingGeneration : MonoBehaviour // Le script utilise du pooling, 
         _terrain.SetActive(true);
         _terrain.transform.position = position;//Si jamais ca fais spawner la prefab trop haut ou trop bas vous bougez le SpawningRandomPoint du Player là
         SearchingPrefab(_terrain);
+        prefabsOnGame.Add(_terrain);
+        prefabID += 1;
     }
 
-    void SearchingPrefab(GameObject _objectToSearch) //Chercher l'object dans la list des éléments spawnés pour le supprimer de la liste --> le récupérer dès que le joueur l'aura dépassé sur le parcours
+    void SearchingPrefab(GameObject _objectToSearch) //Chercher l'object dans la list des éléments spawnés pour le supprimer de la liste
     {
         for (int i = 0; i < terrainGenerated.Count; i++)
         {
@@ -51,4 +63,21 @@ public class PoolingGeneration : MonoBehaviour // Le script utilise du pooling, 
         }
     }
 
+    public void PoolingPlatform(GameObject _platform)
+    {
+        actualPlateform = _platform;
+        for (int i = 2; i < prefabsOnGame.Count; i++)
+        {
+            if (prefabsOnGame[i] == actualPlateform)
+            {
+                lastPlatform = prefabsOnGame[i - 2];
+                lastPlatform.SetActive(false);
+                prefabsOnGame.Remove(lastPlatform);
+                terrainGenerated.Add(lastPlatform);
+                GenerateTerrain(terrainGenerated[Random.Range(0, terrainGenerated.Count)], new Vector2(xGenerationStart, 0));
+                Debug.Log(xGenerationStart);
+                xGenerationStart += 55;
+            }
+        }
+    }
 }

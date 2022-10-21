@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 186332159}
   - component: {fileID: 186332162}
   - component: {fileID: 186332163}
+  - component: {fileID: 186332164}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -276,9 +277,26 @@ MonoBehaviour:
   speedMultiplier: 0.001
   jumpForce: 700
   isGrounded: 0
-  roll: {fileID: 21300000, guid: 51e3d7da954a7d44bbdb298d4bfb9079, type: 3}
-  stand: {fileID: 21300000, guid: b631868f4b63b264a9e0f0be503b9947, type: 3}
-  speedDash: 1.5
+--- !u!95 &186332164
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 186332158}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 50f7c68b5d645024988916b195e6a0af, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &494430782
 GameObject:
   m_ObjectHideFlags: 0

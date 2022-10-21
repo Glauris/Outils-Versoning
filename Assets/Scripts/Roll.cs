@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class Roll : MonoBehaviour
 {
-    public Sprite roll;
-    public Sprite stand;
     public PlayerMovement plm;
 
     void Start()
     {
         
     }
+    public Sprite roll;
+    public Sprite stand;
     bool isRolling;
-    public float speedMultiplier;
+    public float speedDash;
     public IEnumerator doRoll()
     {
         isRolling = true;
@@ -33,7 +33,7 @@ public class Roll : MonoBehaviour
         }
         if (isRolling)
         {
-            transform.Translate(Vector2.right * plm.currentSpeed * speedMultiplier * Time.deltaTime);
+            transform.Translate(Vector2.right * plm.currentSpeed * speedDash * Time.deltaTime);
         }
     }
 }

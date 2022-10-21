@@ -27,6 +27,11 @@ public class PlayerMovement : MonoBehaviour
     public Sprite stand;
     bool isRolling;
     public float speedDash;
+
+    private void Start()
+    {
+        gameObject.GetComponent<Animator>().SetBool("canRoll", true);
+    }
     public IEnumerator doRoll()
     {
         isRolling = true;
@@ -39,6 +44,14 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!isGrounded)
+        {
+            gameObject.GetComponent<Animator>().SetBool("canJump", true);
+        }
+        else
+        {
+            gameObject.GetComponent<Animator>().SetBool("canJump", false);
+        }
         if (Input.GetKeyDown(KeyCode.F) && !isRolling)
         {
             StartCoroutine(doRoll());

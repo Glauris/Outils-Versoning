@@ -277,6 +277,9 @@ MonoBehaviour:
   speedMultiplier: 0.001
   jumpForce: 700
   isGrounded: 0
+  roll: {fileID: 0}
+  stand: {fileID: 0}
+  speedDash: 1.5
 --- !u!95 &186332164
 Animator:
   serializedVersion: 4

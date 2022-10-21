@@ -23,12 +23,31 @@ public class PlayerMovement : MonoBehaviour
         rbPlayer = GetComponent<Rigidbody2D>();
         currentSpeed = minSpeed;
     }
-
+    public Sprite roll;
+    public Sprite stand;
+    bool isRolling;
+    public float speedDash;
+    public IEnumerator doRoll()
+    {
+        isRolling = true;
+        GetComponent<SpriteRenderer>().sprite = roll;
+        yield return new WaitForSeconds(1f);
+        GetComponent<SpriteRenderer>().sprite = stand;
+        isRolling = false;
+        print("caca");
+    }
     // Update is called once per frame
     void Update()
     {
-        
-        if(currentSpeed < maxSpeed)
+        if (Input.GetKeyDown(KeyCode.F) && !isRolling)
+        {
+            StartCoroutine(doRoll());
+        }
+        if (isRolling)
+        {
+            transform.Translate(Vector2.right * currentSpeed * speedDash * Time.deltaTime);
+        }
+        if (currentSpeed < maxSpeed)
         {
             currentSpeed += speedMultiplier;
         }
